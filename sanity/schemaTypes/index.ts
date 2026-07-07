@@ -8,7 +8,9 @@
  */
 import { type SchemaTypeDefinition } from 'sanity'
 import { siteSettings } from './siteSettings'
+import { service } from './service'
+import { teamMember } from './teamMember'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [siteSettings],
+  types: [siteSettings, service],
 }
