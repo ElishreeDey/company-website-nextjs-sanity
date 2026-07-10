@@ -14,19 +14,19 @@ import { PortableText } from "next-sanity";
 import { sanityFetch } from "@/sanity/lib/live";
 import { urlFor } from "@/sanity/lib/image";
 import { POST_QUERY } from "@/sanity/lib/queries";
-import type { PostDetail } from "@/sanity/lib/types";
+import { BLOG_MESSAGES } from "@/app/blog/messages"; //centralized message for this segment
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const { data } = await sanityFetch({ query: POST_QUERY, params: { slug } });
-  const post = data as PostDetail | null;
+  const { data: post } = await sanityFetch({ query: POST_QUERY, params: { slug } });
 
   if (!post) {
-    return { title: "Post not found" };
+    return { title: BLOG_MESSAGES.postNotFoundTitle };
   }
 
   return {
@@ -45,11 +45,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const { data } = await sanityFetch({ query: POST_QUERY, params: { slug } });
-  const post = data as PostDetail | null;
+  const { data: post } = await sanityFetch({ query: POST_QUERY, params: { slug } });
 
   if (!post) {
-    notFound();
+    notFound(); 
   }
 
   return (

@@ -12,25 +12,28 @@ import Image from "next/image"; //import optimized Next.js image component
 import Link from "next/link"; //import Link for navigation to the post detail page
 import { sanityFetch } from "@/sanity/lib/live"; //import fetch data from Sanity
 import { urlFor } from "@/sanity/lib/image"; //Convert Sanity image object into a real URL
-import { POSTS_QUERY } from "@/sanity/lib/queries"; //import GROQ query created in queries.ts
-import type { Post } from "@/sanity/lib/types"; //shared post shape, since POSTS_QUERY isn't typed by sanityFetch
+import { POSTS_QUERY } from "@/sanity/lib/queries"; //import GROQ query created in queries/post.ts
+import { BLOG_MESSAGES } from "@/app/blog/messages"; //centralized copy for this segment
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description: "News, updates, and articles from the team.",
+  title: BLOG_MESSAGES.listTitle,
+  description: BLOG_MESSAGES.listDescription,
 };
 
 export default async function BlogPage() {
-  const { data } = await sanityFetch({ query: POSTS_QUERY });
-  const posts = data as Post[];
+  // POSTS_QUERY is defined with defineQuery(), so Sanity TypeGen (npm run typegen) maps this
+  // exact query string to POSTS_QUERY_RESULT — `data` is typed automatically, no cast needed.
+  const { data: posts } = await sanityFetch({ query: POSTS_QUERY });
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-8 px-16 py-32">
-      <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">
+        {BLOG_MESSAGES.listTitle}
+      </h1>
 
       {posts.length === 0 && (
         <p className="text-zinc-600 dark:text-zinc-400">
-          No posts published yet.
+          {BLOG_MESSAGES.emptyState}
         </p>
       )}
 

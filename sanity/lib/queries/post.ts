@@ -1,16 +1,16 @@
 /*
  ****************************************************************************************************************************
- * Filename    : queries
- * Description : GROQ queries used to fetch content from Sanity.
+ * Filename    : post
+ * Description : GROQ queries for 'post' documents. 
  * Author      : Elishree Dey Chand
- * Created     : 2026-07-09
+ * Created     : 2026-07-10
  ****************************************************************************************************************************
  */
 
-import groq from 'groq'
+import { defineQuery } from "next-sanity";
 
-// All posts, newest first(order by publishedAt) — for the blog listing page.
-export const POSTS_QUERY = groq`
+// All posts, newest first (order by publishedAt) — for the blog listing page.
+export const POSTS_QUERY = defineQuery(`
   *[_type == "post"] | order(publishedAt desc) {
     _id,
     title,
@@ -20,10 +20,10 @@ export const POSTS_QUERY = groq`
     excerpt,
     image
   }
-`
+`);
 
 // Single post by slug, including the full body — for the blog detail page.
-export const POST_QUERY = groq`
+export const POST_QUERY = defineQuery(`
   *[_type == "post" && slug.current == $slug][0] {
     _id,
     title,
@@ -34,4 +34,4 @@ export const POST_QUERY = groq`
     image,
     content
   }
-`
+`);

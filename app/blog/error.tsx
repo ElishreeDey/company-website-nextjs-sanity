@@ -10,6 +10,7 @@
 "use client"; // Error boundaries must be Client Components
 
 import { useEffect } from "react";
+import { BLOG_MESSAGES } from "@/app/blog/messages"; //centralized message for this segment
 
 export default function BlogError({
   error,
@@ -25,16 +26,16 @@ export default function BlogError({
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-start gap-4 px-16 py-32">
       <h1 className="text-2xl font-semibold tracking-tight">
-        Couldn&apos;t load the blog
+        {BLOG_MESSAGES.errorTitle}
       </h1>
       <p className="text-zinc-600 dark:text-zinc-400">
-        Unable to fetch posts from Sanity.
+        {BLOG_MESSAGES.errorMessage}
       </p>
       <button
-        onClick={() => unstable_retry()}
+        onClick={() => unstable_retry()} // re-fetch and re-render 
         className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc]"
       >
-        Please try again
+        {BLOG_MESSAGES.retryButtonLabel}
       </button>
     </main>
   );
