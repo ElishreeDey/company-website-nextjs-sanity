@@ -1,7 +1,7 @@
 /*
  ****************************************************************************************************************************
  * Filename    : page
- * Description : ContactUs page — form posts to a Server Action that creates a contactUsMessage in Sanity.
+ * Description : ContactUs page — form posts to a Server Action that creates a contactUsMessage document in Sanity.
  * Author      : Elishree Dey Chand
  * Created     : 2026-07-14
  ****************************************************************************************************************************
