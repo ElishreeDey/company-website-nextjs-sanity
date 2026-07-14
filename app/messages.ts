@@ -20,7 +20,7 @@ export const SITE_MESSAGES = {
   navTeamTooltip: "Meet the people behind the company.",
   navServices: "Services",
   navServicesTooltip: "What we offer.",
-  navContact: "Contact",
+  navContact: "Contact Us",
   navContactTooltip: "Get in touch with us.",
 
   // app/page.tsx — homepage sections.
